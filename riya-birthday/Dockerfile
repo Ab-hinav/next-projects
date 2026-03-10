@@ -23,17 +23,24 @@ RUN apk update && apk upgrade
 WORKDIR /app
 
 ENV NODE_ENV=production
+# Important: ensure Next.js uses port 3002 inside the standalone server script
+ENV PORT=3002
+ENV HOSTNAME="0.0.0.0"
 
-# Copy essential artifacts from the builder stage
+# Copy the public directory (standalone doesn't include it by default)
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
 
-# Copy runtime configuration and environment variables
-COPY --from=builder /app/next.config.ts ./
+# Automatically leverage output traces to dramatically reduce image size
+# Copy the built standalone application
+COPY --from=builder /app/.next/standalone ./
+# Copy static files separately (standalone doesn't include them to allow serving via CDN if needed)
+COPY --from=builder /app/.next/static ./.next/static
+
+# Copy your local custom directories & envs
 COPY --from=builder /app/.env ./
 COPY --from=builder /app/data ./data
+
 EXPOSE 3002
 
-CMD ["npm", "start"]
+# Start the standalone Node.js server instead of using "npm start"
+CMD ["node", "server.js"]
