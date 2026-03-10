@@ -135,7 +135,18 @@ export default function AddWishForm() {
 
               {/* Enhanced Photo Upload UI */}
               <div className="space-y-2 pt-2">
-                <label className="text-sm font-medium text-slate-700 ml-1 flex items-center gap-2">
+                <label htmlFor="passcode" className="text-sm font-medium text-slate-700 ml-1">Secret Passcode *</label>
+                <input
+                  id="passcode"
+                  name="passcode"
+                  type="password"
+                  required
+                  className="w-full px-4 py-3 rounded-xl border border-rose-200 focus:border-rose-400 focus:ring-2 focus:ring-rose-200 outline-none transition-all bg-rose-50/30 mb-4"
+                  placeholder="Ask Abhinav for the passcode"
+                  suppressHydrationWarning
+                />
+                
+                <label className="text-sm font-medium text-slate-700 ml-1 flex items-center gap-2 mt-4">
                   <ImageIcon className="w-4 h-4 text-rose-400" />
                   Attach a Photo (Optional)
                 </label>

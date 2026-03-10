@@ -69,6 +69,11 @@ export async function addWish(formData: FormData) {
     const relation = formData.get('relation') as string;
     const message = formData.get('message') as string;
     const imageFile = formData.get('image') as File | null;
+    const passcode = formData.get('passcode') as string;
+
+    if (passcode !== process.env.SUBMISSION_PASSCODE) {
+      return { success: false, error: 'Incorrect secret passcode. You cannot submit.' };
+    }
 
     if (!name || typeof name !== 'string' || name.trim() === '' || !message || typeof message !== 'string' || message.trim() === '') {
       return { success: false, error: "Name and Message are required" };
