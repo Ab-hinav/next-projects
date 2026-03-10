@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   experimental: {
     serverActions: {
+      allowedOrigins: ['happybirthdayriya.uk'],
       bodySizeLimit: '10mb',
     },
   },
