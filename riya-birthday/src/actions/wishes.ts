@@ -80,7 +80,7 @@ export async function addWish(formData: FormData) {
     if (relation && relation.length > 100) {
       return { success: false, error: "Relation is too long" };
     }
-    if (message.length > 2000) {
+    if (message.length > 20000) {
       return { success: false, error: "Message is too long" };
     }
 
@@ -89,7 +89,7 @@ export async function addWish(formData: FormData) {
 
     // Handle Image upload if present
     if (imageFile && imageFile.size > 0 && imageFile.name !== 'undefined') {
-      if (imageFile.size > 5 * 1024 * 1024) {
+      if (imageFile.size > 10 * 1024 * 1024) {
         return { success: false, error: "Image file is too large (max 5MB)" };
       }
 
